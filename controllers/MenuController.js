@@ -1,52 +1,62 @@
-const inquirer = require ('inquirer');
+const inquirer = require('inquirer');
 
-module.exports = class MenuController{
-  constructor(){
+module.exports = class MenuController {
+	constructor() {
+		this.mainMenuQuestions = [
+			{
+				type: 'list',
+				name: 'mainMenuChoice',
+				message: 'Please choose from an option below: ',
+				choices: [
+					'Add new contact',
+					'Get date',
+					'Exit'
+				]
+			}
+		];
+		this.contacts = [];
+	}
 
-    this.mainMainQuestions = [
-{
-  type: "list",
-  name: "mainMenuChoice",
-  message: "Please choose from an option below: ",
-  choices: [
-    "Add new contact",
-    "Exit"
-  ]
-}
+	main() {
+		console.log('Welcome to AddressBloc!');
+		inquirer.prompt(this.mainMenuQuestions).then((response) => {
+			switch (response.mainMenuChoice) {
+				case "Add new contact":
+					this.addContact();
+					break;
+				case "Get date":
+					this.getDate();
+					this.main();
+					break;
+				case "Exit":
+					this.exit();
+				default:
+					console.log('Invalid Input');
+					this.main();
+			}
+		})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
 
-];
-this.contacts = [];
-  }
+	clear() {
+		console.log('\x1Bc');
+	}
 
-  main(){
-console.log('Welcome to AddressBloc');
-inquirer.prompt(this.mainMainQuestions).then((response) => {
-  switch(response.mainMenuChoice){
-    case "Add new contact":
-    this.addContact();
-    break;
-    case "Exit" :
-    this.exit();
-    default: console.log("Invalid input");
-    this.main();
-  }
-})
-  }
+	addContact() {
+		this.clear();
+		console.log('addContact called');
+		this.main();
+	}
 
-  clear(){
-    console.log('"\x1Bc"');
-  }
+	exit() {
+		console.log('Thanks for using AddressBloc!');
+		process.exit();
+	}
 
-  addContact(){
-    this.clear();
-    console.log('addContact called');
-    this.main();
-  }
-
-  exit(){
-    console.log("Thanks for using AddressBloc!");
-    process.exit();
-
-  }
-
+	getDate() {
+		var today = new Date().toLocaleString();
+		console.log(today);
+	}
 }

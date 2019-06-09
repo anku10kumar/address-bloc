@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "date-and-time": "^0.7.0",
     "inquirer": "^5.1.0"
   }
 }
