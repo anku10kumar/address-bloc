@@ -62,7 +62,7 @@ module.exports = class MenuController {
 		console.log('Thanks for using AddressBloc!');
 		process.exit();
 	}
-
+  
 	getDate() {
 		var today = new Date().toLocaleString();
 		console.log(today);
